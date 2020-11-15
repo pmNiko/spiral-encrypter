@@ -1,6 +1,7 @@
 from characters import Characters
 from quadrant import Quadrant
 import copy
+from content import Content
 
 # creación de una instancia de Characters
 characters = Characters()
@@ -24,6 +25,7 @@ quadrant_6.add( characters.chars, 31)
 class Encrypter:
     
     def __init__(self):
+        self.content = Content()
         self.quadrant_1 = quadrant_1
         self.quadrant_2 = quadrant_2
         self.quadrant_3 = quadrant_3
@@ -31,9 +33,35 @@ class Encrypter:
         self.quadrant_5 = quadrant_5
         self.quadrant_6 = quadrant_6
         self.mix_1_2_3 = []
+        self.chars_spiral = []
         self.quadrant_4_spin = []
         self.quadrant_5_spin = []
         self.quadrant_6_spin = []
+        self.chars_spin = []
+    
+    def encrypt(self, chars):
+        array_chars = self.content.parse(chars)
+        hash_encrypt = []
+        for char in array_chars:
+            if char in self.chars_spiral:
+                poistion = self.chars_spiral.index(char)
+                hash_encrypt.append(self.chars_spin[poistion])
+            else:
+                hash_encrypt.append('#')
+        your_hash = self.content.render_hash(hash_encrypt)
+        print('Su hash => ', your_hash)
+    
+    def decrypt(self, hash_encrypt):
+        array_chars = self.content.parse(hash_encrypt)
+        hash_decrypt = []
+        for char in array_chars:
+            if char in self.chars_spin:
+                poistion = self.chars_spin.index(char)
+                hash_decrypt.append(self.chars_spiral[poistion])
+            else:
+                hash_decrypt.append('#')
+        your_phrase = self.content.render_hash(hash_decrypt)
+        print('Su frase es => ', your_phrase)
     
     # gira la posición de los caracteres segun el speed
     def frequency(self, items, speed):
@@ -49,26 +77,38 @@ class Encrypter:
     def spinner(self, speed):
         self.reset()
         self.mix_quadrant()
+        self.set_chars_spiral()
+
         self.mix_1_2_3 = self.frequency(self.mix_1_2_3, speed)
-        print(self.mix_1_2_3)
         self.quadrant_4_spin = self.frequency(self.quadrant_4.items.copy(), speed)
-        print(self.quadrant_4_spin)
         self.quadrant_5_spin = self.frequency(self.quadrant_5.items.copy(), speed)
-        print(self.quadrant_5_spin)
         self.quadrant_6_spin = self.frequency(self.quadrant_6.items.copy(), speed)
-        print(self.quadrant_6_spin)
+
+        self.chars_spin.extend(self.mix_1_2_3.copy())
+        self.chars_spin.extend(self.quadrant_4_spin.copy())
+        self.chars_spin.extend(self.quadrant_5_spin.copy())
+        self.chars_spin.extend(self.quadrant_6_spin.copy())
     
+    def set_chars_spiral(self):
+        self.chars_spiral.extend(self.mix_1_2_3.copy())
+        self.chars_spiral.extend(self.quadrant_4.items.copy())
+        self.chars_spiral.extend(self.quadrant_5.items.copy())
+        self.chars_spiral.extend(self.quadrant_6.items.copy())
+    
+    def mix_quadrant(self):
+        self.mix_1_2_3.extend(self.quadrant_1.items.copy())
+        self.mix_1_2_3.extend(self.quadrant_2.items.copy())
+        self.mix_1_2_3.extend(self.quadrant_3.items.copy())
+        return self.mix_1_2_3
+
     def reset(self):
         self.mix_1_2_3 = []
         self.quadrant_4_spin = []
         self.quadrant_4_spin = []
         self.quadrant_4_spin = []
+        self.chars_spin = []
+        self.chars_spiral = []
     
-    def mix_quadrant(self):
-        self.mix_1_2_3.extend(self.quadrant_1.items)
-        self.mix_1_2_3.extend(self.quadrant_2.items)
-        self.mix_1_2_3.extend(self.quadrant_3.items)
-        return self.mix_1_2_3
     
 
         
