@@ -1,8 +1,10 @@
 from encrypter import Encrypter
+import pyfiglet 
 
 encripter = Encrypter()
 
-print("SPIRAL-ECRIPTER")
+title = pyfiglet.figlet_format("Espiral Encripter", font = "slant" )
+print(title)
 
 option = 0
 while option < 3:
