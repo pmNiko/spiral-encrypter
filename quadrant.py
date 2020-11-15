@@ -1,11 +1,13 @@
 class Quadrant:
-    def __init__(self, large, start,name):
+    # recibe como parametro el largo     
+    def __init__(self, large, name):
         self.items = []
         self.large = large
-        self.start = start
         self.name = name
 
-    def add(self,parameter_list):
-        for ele in range(self.start,len(parameter_list)):
+    # recibe el array de characters a agregar y el indice de inicio
+    def add(self, characters, start):
+        for char in range(start,len(characters)):
+            # agrega la cantidad de caracteres segun su largo
             if len(self.items) < self.large:
-                self.items.append(parameter_list[ele])
+                self.items.append(characters[char])
