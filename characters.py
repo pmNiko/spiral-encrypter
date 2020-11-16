@@ -1,6 +1,6 @@
 import random
 
-# 
+# Este es el rango de caracteres validos a utlizar
 items = [
         '-', '*', 
         '1', ' ', 'H', 
@@ -10,10 +10,12 @@ items = [
         'P', 'I', '5', 'S', 'J', '$', 'A', '3', 'O', '9', 'X', 'V', 'E', '=', 'L', 'Z', 'N', '(', '"', '4', 'W'
         ]
 
+# Entidad encargada del manejo del rango de caracteres base
 class Characters:  
 
     def __init__(self):
         self.chars = items
+        
     # cantidad de caracteres contenidos
     def large(self):
         return len(self.chars)

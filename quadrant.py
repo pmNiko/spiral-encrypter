@@ -1,9 +1,9 @@
+# Entidad encargada del manejo de los cuadrantes del espiral
 class Quadrant:
     # recibe como parametro el largo     
-    def __init__(self, large, name):
+    def __init__(self, large):
         self.items = []
         self.large = large
-        self.name = name
 
     # recibe el array de characters a agregar y el indice de inicio
     def add(self, characters, start):
